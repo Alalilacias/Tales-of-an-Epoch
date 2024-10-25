@@ -1,0 +1,18 @@
+name: Enforce Pull Request Source Branch
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the source branch is 'develop'
+        if: github.base_ref == 'main'
+        run: |
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "Pull requests to main must be from the develop branch."
+            exit 1
+          fi
+
