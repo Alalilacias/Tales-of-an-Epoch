@@ -34,7 +34,7 @@ Our branch system follows this organization:
 
 It is very important to follow the commit strategy, as it might be possible to use tools to automatically handle versioning and to read through large numbers of commits.
 
-For this project, we'll follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#specification). If the web page is unavailable, feel free to visit the copy saved in `documentation/misc/savedpages/conventionalcommits`.
+For this project, we'll follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#specification). If the web page is unavailable, feel free to visit the copy saved in `documentation/misc/savedpages/conventionalcommits`. For a simpler explanation or a quick refresher, feel free to visit our documentation's [CONVENTIONAL_COMMITS.md](documentation/design/work procedures/CONVENTIONAL_COMMITS.md)
 
 #### Workflow
 
