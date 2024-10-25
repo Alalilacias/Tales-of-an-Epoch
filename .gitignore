@@ -1,6 +1,10 @@
 # Gradle
 .gradle/
 build/
+/gradle/
+/gradlew
+/gradlew.bat
+/settings.gradle.kts
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -100,4 +104,4 @@ yarn-error.log
 # Application specific
 *.db  # SQLite databases
 *.sqlite
-/gradle/
+
