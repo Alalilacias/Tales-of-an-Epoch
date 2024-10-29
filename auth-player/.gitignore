@@ -1,0 +1,107 @@
+# Gradle
+.gradle/
+build/
+/gradle/
+/gradlew
+/gradlew.bat
+/settings.gradle.kts
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+
+# Eclipse
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans/
+.sts4-cache/
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Visual Studio Code
+.vscode/
+.history/  # VS Code history folder
+*.code-workspace  # Workspace files
+
+# Docker
+**/Dockerfile
+**/docker-compose.yml
+**/*.dockerignore
+.dockerignore
+**/docker-compose.override.yml
+
+# Log files
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.swp  # Swap files from editors
+*.swo
+
+# Maven
+target/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+*.swp
+
+# Node.js (if applicable for any microservices)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Coverage reports (if using tools like JaCoCo)
+**/build/reports/
+**/build/jacoco/
+
+# IDE specific (if applicable)
+*.sublime-workspace
+*.sublime-project
+
+# Miscellaneous
+*.jar
+*.war
+*.ear
+*.class
+*.exe
+*.dll
+*.o
+*.so
+*.dSYM/
+*.pdb
+*.idb
+*.idc
+*.gcno
+*.gcda
+
+# Application specific
+*.db  # SQLite databases
+*.sqlite
+
