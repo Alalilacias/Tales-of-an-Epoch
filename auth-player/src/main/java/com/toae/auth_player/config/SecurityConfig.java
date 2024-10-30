@@ -16,7 +16,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SecurityConfig {
 
     private static final String[] AUTHORIZED_REQUESTS = {
-            "/auth/**",
+            "/api/users/register",
             "/swagger-ui/**",
             "/v3/api-docs/**"
     };

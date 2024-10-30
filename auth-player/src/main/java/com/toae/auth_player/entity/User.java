@@ -30,9 +30,11 @@ public class User {
     @Indexed(unique = true)
     private String email;
 
+    // Evaluate possibility of creating a Phone Class
     @NotBlank(message = "Phone number is mandatory")
     private String phoneNumber;
 
+    // Evaluate possibility of creating an Address Class
     private String address;
 
     // Additional fields can be added as needed
