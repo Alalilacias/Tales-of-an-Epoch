@@ -1,13 +1,14 @@
+# Use an official OpenJDK runtime as a parent image
 FROM openjdk:21-jdk
-LABEL authors="Allalilacias"
 
+# Set the working directory in the container
 WORKDIR /app
 
-COPY build.gradle settings.gradle ./
-COPY src src/
+# Copy the built JAR file from the host to the container
+COPY build/libs/auth-player-0.0.1-SNAPSHOT.jar auth-player.jar
 
-RUN ./gradlew clean build -x test
-
+# Expose the port the application runs on
 EXPOSE 8080
 
-CMD ["java", "-jar", "build/libs/your-app-name-0.0.1-SNAPSHOT.jar"]
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "auth-player.jar"]

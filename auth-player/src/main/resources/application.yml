@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: auth-player
+
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/authdb
+      auto-index-creation: true
+
+  docker:
+    compose:
+      file: auth-player/docker-compose.yml
+      enabled: true
+
+  mvc:
+    problemdetails:
+      enabled: true
+
+  security:
+    auth:
+      secret: "ad702d4b31afb9a4c65b5324234af6f5aaf329fe4d40f8b0afcb86ec348c3345"
+      expiration: 86400000
+      header: Authorization
+      prefix: Bearer
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: Authorization and Player Management Service
+    version: 0.0.1-SNAPSHOT
+  build:
+    java:
+      version: ${java.version}
+    os:
+      name: ${os.name}
+      version: ${os.version}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+  endpoint:
+    health:
+      show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+
+server:
+  port: 8080
+
+springdoc:
+  api:
+    title: Authorization and Player Management Microservice
+    version: 0.0.1-SNAPSHOT
+    description: API Documentation for My Reactive Authorization and Player Management Microservice
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  show-actuator: true
+
+debug: false
