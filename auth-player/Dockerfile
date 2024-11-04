@@ -1,12 +1,10 @@
-# First stage: build the JAR
-FROM gradle:8-jdk AS build
-WORKDIR /app
-COPY . .
-RUN ./gradlew build -x test
-
-# Second stage: create the runtime container
+# Dockerfile for auth-service
 FROM openjdk:21-jdk
+
 WORKDIR /app
-COPY --from=build /app/build/libs/auth-player-0.0.1-SNAPSHOT.jar auth-player.jar
+
+COPY build/libs/auth-player-0.0.1-SNAPSHOT.jar auth-player.jar
+
 EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "auth-player.jar"]

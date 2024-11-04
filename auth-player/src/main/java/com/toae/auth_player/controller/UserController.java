@@ -27,8 +27,7 @@ public class UserController {
 
     @PostMapping("/register")
     public Mono<ResponseEntity<UserDto>> registerUser(@Validated @RequestBody UserRegistrationRequest request){
-        return userService.registerUser(request).map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+        return userService.registerUser(request).map(ResponseEntity::ok);
     }
 
     @GetMapping

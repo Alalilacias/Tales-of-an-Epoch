@@ -15,7 +15,7 @@ public class SecurityConfig {
 
     private static final String[] AUTHORIZED_REQUESTS = {
             "/api/users/register", "/api/users",
-            "/webjars/**", "/swagger-ui/**", "/swagger-ui.html",
+            "/swagger-ui.html",
             "/v3/api-docs/**",
             "/actuator/**"
     };

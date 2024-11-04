@@ -34,18 +34,20 @@ public class UserServiceImp implements UserService {
                     } else if (existingUser.getUsername().equals(registrationRequest.username())) {
                         return Mono.error(new UserAlreadyExistsException("User with username " + registrationRequest.username() + " already exists."));
                     }
-
-                    return userRepository.save(User
-                                    .builder()
-                                    .username(registrationRequest.username())
-                                    .password(passwordEncoder.encode(registrationRequest.password())) // Hash the password
-                                    .email(registrationRequest.email())
-                                    .address(registrationRequest.address())
-                                    .phoneNumber(registrationRequest.phoneNumber())
-                                    .build())
-                            .map(UserMapper::toDto);
-                });
+                    return Mono.empty();
+                })
+                .switchIfEmpty(
+                        userRepository.save(User.builder()
+                                        .username(registrationRequest.username())
+                                        .password(passwordEncoder.encode(registrationRequest.password())) // Hash the password
+                                        .email(registrationRequest.email())
+                                        .address(registrationRequest.address())
+                                        .phoneNumber(registrationRequest.phoneNumber())
+                                        .build())
+                                .map(UserMapper::toDto)
+                ).cast(UserDto.class);
     }
+
 
     @Override
     public Flux<UserDto> getAll(){
