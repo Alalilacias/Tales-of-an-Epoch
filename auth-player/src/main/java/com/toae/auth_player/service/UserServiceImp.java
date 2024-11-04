@@ -1,6 +1,5 @@
 package com.toae.auth_player.service;
 
-import com.mongodb.MongoWriteException;
 import com.toae.auth_player.dto.UserDto;
 import com.toae.auth_player.dto.request.UserRegistrationRequest;
 import com.toae.auth_player.entity.User;
@@ -36,19 +35,16 @@ public class UserServiceImp implements UserService {
                         return Mono.error(new UserAlreadyExistsException("User with username " + registrationRequest.username() + " already exists."));
                     }
 
-                    return Mono.empty();
-                })
-                .switchIfEmpty(
-                        userRepository.save(User.builder()
-                                        .username(registrationRequest.username())
-                                        .password(passwordEncoder.encode(registrationRequest.password())) // Hash the password
-                                        .email(registrationRequest.email())
-                                        .address(registrationRequest.address())
-                                        .phoneNumber(registrationRequest.phoneNumber())
-                                        .build())
-                                .map(UserMapper::toDto)
-                )
-                .cast(UserDto.class);
+                    return userRepository.save(User
+                                    .builder()
+                                    .username(registrationRequest.username())
+                                    .password(passwordEncoder.encode(registrationRequest.password())) // Hash the password
+                                    .email(registrationRequest.email())
+                                    .address(registrationRequest.address())
+                                    .phoneNumber(registrationRequest.phoneNumber())
+                                    .build())
+                            .map(UserMapper::toDto);
+                });
     }
 
     @Override
