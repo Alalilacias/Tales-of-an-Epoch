@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
@@ -16,9 +14,10 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SecurityConfig {
 
     private static final String[] AUTHORIZED_REQUESTS = {
-            "/auth/**",
-            "/swagger-ui/**",
-            "/v3/api-docs/**"
+            "/api/users/register", "/api/users",
+            "/swagger-ui.html",
+            "/v3/api-docs/**",
+            "/actuator/**"
     };
 
     private final TokenFilter tokenFilter;
@@ -29,20 +28,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
-        http
-                .authorizeExchange(
-                        exchanges -> exchanges
-                                .pathMatchers(AUTHORIZED_REQUESTS).permitAll()
-                                .anyExchange().authenticated())
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .addFilterBefore(tokenFilter, SecurityWebFiltersOrder.AUTHENTICATION);
-
-        return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+                .authorizeExchange(exchanges -> exchanges
+                        .pathMatchers(AUTHORIZED_REQUESTS).permitAll()
+                        .anyExchange().authenticated()
+                )
+                .addFilterBefore(tokenFilter, SecurityWebFiltersOrder.AUTHENTICATION) // Add TokenFilter
+                .build();
     }
 }

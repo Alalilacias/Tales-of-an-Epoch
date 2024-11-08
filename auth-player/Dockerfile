@@ -1,13 +1,10 @@
+# Dockerfile for auth-service
 FROM openjdk:21-jdk
-LABEL authors="Allalilacias"
 
 WORKDIR /app
 
-COPY build.gradle settings.gradle ./
-COPY src src/
-
-RUN ./gradlew clean build -x test
+COPY build/libs/auth-player-0.0.1-SNAPSHOT.jar auth-player.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "build/libs/your-app-name-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "auth-player.jar"]
