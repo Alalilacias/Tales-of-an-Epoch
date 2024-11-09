@@ -18,19 +18,18 @@ public class User {
     @MongoId
     private String id;
 
-    private String username;
+    private String username;  // Unique username for each user
 
-    private String password; // Ensure it is always hashed.
+    private String password;  // Ensure it is always hashed before saving
 
     @Email(message = "Email should be valid")
     private String email;
 
-    // Evaluate possibility of creating a Phone Class
-    private String phoneNumber;
+    private String phoneNumber;  // Format validation may be added if using a Phone class
 
-    // Evaluate possibility of creating an Address Class
-    private String address;
+    private String address;  // Consider an Address class if more fields are needed
 
-    // Additional fields can be added as needed
-    // Most Likely, private String AccountId;
+    // Consider adding more variables.
+    // Future: private String accountId; // Unique account ID for user account tracking
 }
+

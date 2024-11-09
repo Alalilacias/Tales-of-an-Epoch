@@ -1,4 +1,3 @@
-# Dockerfile for auth-service
 FROM openjdk:21-jdk
 
 WORKDIR /app
