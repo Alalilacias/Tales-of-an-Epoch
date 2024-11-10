@@ -2,7 +2,6 @@ package com.toae.auth_player.entity;
 
 import jakarta.validation.constraints.Email;
 import lombok.*;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
