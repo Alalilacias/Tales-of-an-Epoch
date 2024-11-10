@@ -1,3 +1,4 @@
+#file: noinspection undefined
 spring:
   application:
     name: auth-player
@@ -38,6 +39,9 @@ info:
 management:
   endpoints:
     enabled-by-default: false
+    web:
+      exposure:
+        include: health, metrics, beans, env
   endpoint:
     health:
       enabled: true
@@ -53,11 +57,7 @@ management:
       enabled: true
     readinessstate:
       enabled: true
-  info:
-    build:
-      enabled: true
-    env:
-      enabled: true
+
 
 server:
   port: 8080
@@ -72,5 +72,9 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
+    oauth:
+      enabled: false
+    authorization:
+      enabled: false
 
 debug: false

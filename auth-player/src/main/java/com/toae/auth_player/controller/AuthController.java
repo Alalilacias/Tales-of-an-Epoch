@@ -5,6 +5,7 @@ import com.toae.auth_player.dto.request.UserLoginRequest;
 import com.toae.auth_player.dto.request.UserRegistrationRequest;
 import com.toae.auth_player.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,6 +36,13 @@ public class AuthController {
     @Operation(
             summary = "Register a new user",
             description = "Registers a new user with the provided information.",
+            parameters = {
+                    @Parameter(name = "username", description = "Username for the new user", required = true),
+                    @Parameter(name = "password", description = "Password for the new user", required = true),
+                    @Parameter(name = "email", description = "Email for the new user", required = true),
+                    @Parameter(name = "phoneNumber", description = "Phone number for the new user", required = true),
+                    @Parameter(name = "address", description = "Address for the new user")
+            },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "User registration data",
                     required = true,
@@ -42,14 +50,14 @@ public class AuthController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = UserRegistrationRequest.class),
                             examples = @ExampleObject(value = """
-                                {
-                                  "username": "newUser",
-                                  "password": "securePassword",
-                                  "email": "user@example.com",
-                                  "phoneNumber": "123456789",
-                                  "address": "123 Main St, City, Country"
-                                }
-                            """)
+                            {
+                              "username": "newUser",
+                              "password": "securePassword",
+                              "email": "user@example.com",
+                              "phoneNumber": "123456789",
+                              "address": "123 Main St, City, Country"
+                            }
+                        """)
                     )
             ),
             responses = {
@@ -58,17 +66,22 @@ public class AuthController {
                                     mediaType = "application/json",
                                     schema = @Schema(implementation = UserDto.class),
                                     examples = @ExampleObject(value = """
-                                        {
-                                          "username": "newUser",
-                                          "email": "user@example.com",
-                                          "phoneNumber": "123456789"
-                                        }
-                                    """)
+                                    {
+                                      "username": "newUser",
+                                      "email": "user@example.com",
+                                      "phoneNumber": "123456789"
+                                    }
+                                """)
                             )),
                     @ApiResponse(responseCode = "409", description = "Conflict - Username or email already exists",
                             content = @Content(
                                     mediaType = "application/json",
                                     examples = @ExampleObject(value = "{ \"error\": \"User with email user@example.com already exists.\" }")
+                            )),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized - This response will never occur because registration does not require prior authentication.",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    examples = @ExampleObject(value = "{ \"error\": \"Unauthorized access is not possible for user registration.\" }")
                             ))
             }
     )
@@ -80,6 +93,11 @@ public class AuthController {
     @Operation(
             summary = "User login",
             description = "Authenticates a user with either username or email and password, returning a JWT token upon successful authentication.",
+            parameters = {
+                    @Parameter(name = "username", description = "Username of the user"),
+                    @Parameter(name = "email", description = "Email of the user"),
+                    @Parameter(name = "password", description = "Password of the user", required = true)
+            },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "User login credentials",
                     required = true,
@@ -119,4 +137,3 @@ public class AuthController {
         return userService.loginUser(request).map(ResponseEntity::ok);
     }
 }
-
