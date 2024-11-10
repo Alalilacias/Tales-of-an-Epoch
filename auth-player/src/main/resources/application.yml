@@ -38,16 +38,16 @@ info:
 management:
   endpoints:
     enabled-by-default: false
-    web:
-      exposure:
-        include:
-          - beans
-          - env
-          - health
-          - metrics
   endpoint:
     health:
+      enabled: true
       show-details: always
+    metrics:
+      enabled: true
+    beans:
+      enabled: true
+    env:
+      enabled: true
   health:
     livenessstate:
       enabled: true
@@ -72,6 +72,5 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
-  show-actuator: true
 
 debug: false
