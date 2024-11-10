@@ -4,12 +4,17 @@ import com.toae.auth_player.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails, Serializable {
 
-    private final User user;
+    @Serial
+    private static final long serialVersionUID = 837150153L;
+
+    private final transient User user;
 
     public CustomUserDetails(User user) {
         this.user = user;

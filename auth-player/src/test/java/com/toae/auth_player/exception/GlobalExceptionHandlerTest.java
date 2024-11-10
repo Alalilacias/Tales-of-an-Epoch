@@ -22,7 +22,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void handleUserAlreadyExistsException() {
-        UserAlreadyExistsException exception = new UserAlreadyExistsException("User");
+        UserAlreadyExistsException exception = new UserAlreadyExistsException("User already exists.");
 
         Mono<ResponseEntity<String>> response = globalExceptionHandler.handleUserAlreadyExistsException(exception);
 
@@ -43,4 +43,29 @@ class GlobalExceptionHandlerTest {
         assertEquals(HttpStatus.UNAUTHORIZED, actualResponse.getStatusCode());
         assertEquals("Invalid credentials provided", actualResponse.getBody());
     }
+
+    @Test
+    void handleUserAlreadyExistsExceptionWithNullMessage() {
+        UserAlreadyExistsException exception = new UserAlreadyExistsException(null);
+
+        Mono<ResponseEntity<String>> response = globalExceptionHandler.handleUserAlreadyExistsException(exception);
+
+        assertNotNull(response);
+        ResponseEntity<String> actualResponse = response.block();
+        assertEquals(HttpStatus.CONFLICT, actualResponse.getStatusCode());
+        assertNull(actualResponse.getBody());
+    }
+
+    @Test
+    void handleInvalidCredentialsExceptionWithNullMessage() {
+        InvalidCredentialsException exception = new InvalidCredentialsException(null);
+
+        Mono<ResponseEntity<String>> response = globalExceptionHandler.handleInvalidCredentialsException(exception);
+
+        assertNotNull(response);
+        ResponseEntity<String> actualResponse = response.block();
+        assertEquals(HttpStatus.UNAUTHORIZED, actualResponse.getStatusCode());
+        assertNull(actualResponse.getBody());
+    }
 }
+

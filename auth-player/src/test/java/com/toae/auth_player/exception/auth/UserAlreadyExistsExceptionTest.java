@@ -8,7 +8,7 @@ class UserAlreadyExistsExceptionTest {
     @Test
     void testExceptionMessage() {
         String message = "User already exists.";
-        UserAlreadyExistsException exception = new UserAlreadyExistsException("User");
+        UserAlreadyExistsException exception = new UserAlreadyExistsException(message);
 
         assertEquals(message, exception.getMessage());
     }

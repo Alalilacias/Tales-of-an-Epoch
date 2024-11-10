@@ -28,7 +28,7 @@ public class AuthServiceImp implements AuthService {
     private SecretKey signingKey;
 
     @PostConstruct
-    private void init() {
+    void init() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         signingKey = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -80,20 +80,23 @@ public class AuthServiceImp implements AuthService {
         return Mono.just(getUsername(token))
                 .flatMap(username -> {
                     boolean isValid = username.equals(userDetails.getUsername())
-                            && isTokenExpired(token);
+                            && !isTokenExpired(token);
                     return isTokenBlacklisted(token)
                             .map(isBlacklisted -> isValid && !isBlacklisted);
                 });
     }
 
+
     @Override
     public Mono<Boolean> validateResetToken(String token, String identifier) {
         try {
-            return Mono.just(getUsername(token).equals(identifier) && isTokenExpired(token));
+            boolean isValid = getUsername(token).equals(identifier) && !isTokenExpired(token);
+            return Mono.just(isValid);
         } catch (Exception e) {
             return Mono.just(false);
         }
     }
+
 
     private boolean isTokenExpired(String token) {
         return getExpiration(token).before(new Date());
