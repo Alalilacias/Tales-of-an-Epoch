@@ -3,6 +3,7 @@ package com.toae.auth_player.security;
 import com.toae.auth_player.service.interfaces.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,8 @@ public class TokenFilter implements WebFilter {
     }
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    @NonNull    // In order to quell IntelliJ, as we're overriding a NonNullApi annotated method.
+    public Mono<Void> filter(@NonNull ServerWebExchange exchange, @NonNull WebFilterChain chain) {
         String header = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
         if (header == null || !header.startsWith("Bearer ")) {
@@ -43,14 +45,13 @@ public class TokenFilter implements WebFilter {
                                     null,
                                     userDetails.getAuthorities()
                             );
-                            // Set the authentication context without WebAuthenticationDetailsSource
                             return ReactiveSecurityContextHolder.getContext()
                                     .doOnNext(securityContext -> securityContext.setAuthentication(authToken))
                                     .then(chain.filter(exchange));
                         }
                         return chain.filter(exchange);
                     })
-                    .switchIfEmpty(chain.filter(exchange)); // If user is not found, continue the chain
+                    .switchIfEmpty(chain.filter(exchange));
         }
 
         return chain.filter(exchange);

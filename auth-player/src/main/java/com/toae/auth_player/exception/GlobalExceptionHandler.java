@@ -25,4 +25,3 @@ public class GlobalExceptionHandler {
             return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage()));
     }
 }
-

@@ -19,6 +19,9 @@ spring:
 
   security:
     auth:
+      # Code Generated using Node.js' code: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+      # If working directly on node: console.log(require('crypto').randomBytes(32).toString('hex'))
+      # Source: https://dev.to/tkirwa/generate-a-random-jwt-secret-key-39j4
       secret: "ad702d4b31afb9a4c65b5324234af6f5aaf329fe4d40f8b0afcb86ec348c3345"
       expiration: 86400000
       header: Authorization
