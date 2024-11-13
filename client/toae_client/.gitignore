@@ -1,0 +1,69 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot-specific files
+.import/                      # Import cache directory for Godot assets
+.export/                      # Exported project builds
+export.cfg
+export_presets.cfg            # Godot export presets file, often machine-specific
+
+# Godot Project Settings
+.project/
+.settings/
+
+# C++ GDExtension (if used)
+bin/                          # Compiled binaries
+*.dll                         # Windows DLL files
+*.exe                         # Executable files
+*.lib                         # Windows Library files
+*.a                           # Unix static library files
+*.dylib                       # macOS dynamic library files
+*.so                          # Linux shared object files
+*.o                           # Compiled object files
+*.obj                         # Compiled object files for Windows
+*.log                         # Log files generated during builds
+
+# Godot Temporary Files
+*.tmp                         # Temporary files created by Godot
+*.tscn.converted              # Temporary converted scene files
+*.cfg                         # Configuration backups
+
+# OS-Specific Files
+.DS_Store                     # macOS
+Thumbs.db                     # Windows
+desktop.ini                   # Windows
+
+# IDE-specific files
+.vscode/                      # VSCode settings (optional to ignore)
+.idea/                        # IntelliJ project settings
+*.iml                         # IntelliJ module files
+*.swp                         # Vim swap files
+
+# Build Directories (if using any external build tools)
+build/                        # General build directory for extensions or native builds
+cmake-build*/                 # CMake build directories
+
+# Godot Editor and System Cache
+.cache/                       # Godot editor cache
+godot/*.godot                 # Godot-specific settings or cached files
+
+# Exported Game Builds
+*.apk                         # Android builds
+*.pck                         # Godot package files, if exported separately
+*.zip                         # Zip files for exported builds
+*.tar.gz                      # Tar files for exported builds
+
+# Backup files
+*.bak                         # General backup files
+*.old                         # Old version backups
+*.save                        # Saved states or checkpoints
+*.backup                      # Additional backup files
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
